@@ -22,6 +22,8 @@
 
 #include <iostream>  // for OFSTREAM
 #include <cassert>
+#include <new> 
+#include <memory>  
 
 /*****************************************************************
  * BNODE
@@ -73,7 +75,15 @@ public:
  *******************************************************************/
 inline size_t size(const BNode * p)
 {
-   return 99;
+   if (p == nullptr)
+   {
+      return 0;
+   }
+   else
+   {
+      return size(p->pLeft) + 1 +size(p->pRight); 
+   }
+
 }
 
 
@@ -83,6 +93,12 @@ inline size_t size(const BNode * p)
  ******************************************************/
 inline void addLeft(BNode * pNode, BNode * pAdd)
 {
+   if (pAdd != nullptr)
+   {
+      pAdd->pParent = pNode;
+   }
+   pNode->pLeft = pAdd;
+
 
 }
 
@@ -92,6 +108,12 @@ inline void addLeft(BNode * pNode, BNode * pAdd)
  ******************************************************/
 inline void addRight (BNode * pNode, BNode * pAdd)
 {
+   if (pAdd != nullptr)
+   {
+      pAdd->pParent = pNode;
+   }
+   pNode->pRight = pAdd;
+
 
 }
 
@@ -101,11 +123,18 @@ inline void addRight (BNode * pNode, BNode * pAdd)
  ******************************************************/
 inline void addLeft (BNode  * pNode, const int & t)
 {
+   BNode* pAdd = new BNode(t);
+   pAdd->pParent = pNode;
+   pNode->pLeft = pAdd;
 
 }
 
 inline void addLeft(BNode * pNode, int && t)
 {
+   BNode* pAdd = new BNode(t);
+   pAdd->pParent = pNode;
+   pNode->pLeft = pAdd;
+
 
 }
 
@@ -115,12 +144,16 @@ inline void addLeft(BNode * pNode, int && t)
  ******************************************************/
 void addRight (BNode  * pNode, const int & t)
 {
-
+   BNode* pAdd = new BNode(t);
+   pAdd->pParent = pNode;
+   pNode->pRight = pAdd;
 }
 
 void addRight(BNode * pNode, int && t)
 {
-
+   BNode* pAdd = new BNode(t);
+   pAdd->pParent = pNode;
+   pNode->pRight = pAdd;
 }
 
 /*****************************************************
@@ -132,12 +165,14 @@ void clear(BNode  * & pThis)
 {
    if (pThis == nullptr)
    {
-      return;
+      return ;
    }
+
    clear(pThis->pLeft);
    clear(pThis->pRight);
-   delete pThis;
 
+   pThis = nullptr;
+   delete pThis;
 }
 
 /***********************************************
@@ -147,6 +182,7 @@ void clear(BNode  * & pThis)
  **********************************************/
 inline void swap(BNode *& pLHS, BNode *& pRHS)
 {
+   std::swap(pRHS, pLHS);
 
 }
 
@@ -158,34 +194,29 @@ inline void swap(BNode *& pLHS, BNode *& pRHS)
 BNode  * copy(const BNode  * pSrc)
 {
 
-   if (pSrc)
+   if (pSrc != nullptr)
    {
-
       BNode* node = new BNode();
 
 
       if (pSrc->data)
       {
          node->data = pSrc->data;
+      }
 
-      };
 
-
-      if (!node->pLeft)
+      node->pLeft = copy(pSrc->pLeft);
+      if (pSrc->pLeft != nullptr)
       {
-         //std::cout << "Left was called" << std::endl;
-
-
+         node->pLeft->pParent = node;
       }
 
 
 
-      if (!node->pRight)
+      node->pRight = copy(pSrc->pRight);
+      if (pSrc->pRight != nullptr)
       {
-        // std::cout << "Right was called" << std::endl;
-
-
-        // node->pRight->pParent = node;
+         node->pRight->pParent = node;
       }
 
 
@@ -211,14 +242,16 @@ void assign(BNode  * & pDest, const BNode * pSrc)
 
    if (pSrc == nullptr)
    {
-      //clear(pDest);
+
       pDest = nullptr;
       return;
    }
    if (pDest == nullptr && pSrc != nullptr)
    {
-      //std::cout << "This was  was called" << std::endl;
-      pDest = new BNode(pSrc->data);
+      //std::cout << "Left was called" << std::endl;
+
+      BNode* node = new BNode(pSrc->data);
+      pDest = node;
       assign(pDest->pRight, pSrc->pRight);
       assign(pDest->pLeft, pSrc->pLeft);
    }
@@ -226,6 +259,7 @@ void assign(BNode  * & pDest, const BNode * pSrc)
    {
       //std::cout << "Right was called" << std::endl;
       pDest->data = pSrc->data;
+
       assign(pDest->pRight, pSrc->pRight);
       assign(pDest->pLeft, pSrc->pLeft);
    }
