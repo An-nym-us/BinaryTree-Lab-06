@@ -36,18 +36,24 @@ public:
    //
    BNode()             
    {
-      pLeft = pRight = this;
-      data = 88;
+      pLeft = nullptr;
+      pRight = nullptr;
+      pParent = nullptr;
+      data = int();
    }
    BNode(const int &  t) 
    {
-      pLeft = pRight = this;
-      data = 88;
+      pLeft = nullptr;
+      pRight = nullptr;
+      pParent = nullptr;
+      data = t;
    }
    BNode(int && t) 
    {
-      pLeft = pRight = this;
-      data = 88;
+      pLeft = nullptr;
+      pRight = nullptr;
+      pParent = nullptr;
+      data = t;
    }
 
    // 
@@ -124,6 +130,13 @@ void addRight(BNode * pNode, int && t)
  ****************************************************/
 void clear(BNode  * & pThis)
 {
+   if (pThis == nullptr)
+   {
+      return;
+   }
+   clear(pThis->pLeft);
+   clear(pThis->pRight);
+   delete pThis;
 
 }
 
@@ -144,7 +157,48 @@ inline void swap(BNode *& pLHS, BNode *& pRHS)
  *********************************************/
 BNode  * copy(const BNode  * pSrc)
 {
-   return new BNode;
+
+   if (pSrc)
+   {
+
+      BNode* node = new BNode();
+
+
+      if (pSrc->data)
+      {
+         node->data = pSrc->data;
+
+      };
+
+
+      if (!node->pLeft)
+      {
+         //std::cout << "Left was called" << std::endl;
+
+
+      }
+
+
+
+      if (!node->pRight)
+      {
+        // std::cout << "Right was called" << std::endl;
+
+
+        // node->pRight->pParent = node;
+      }
+
+
+
+      return node;
+   }
+   else 
+   {
+      return nullptr;
+   }
+
+
+
 }
 
 /**********************************************
@@ -154,5 +208,27 @@ BNode  * copy(const BNode  * pSrc)
  *********************************************/
 void assign(BNode  * & pDest, const BNode * pSrc)
 {
+
+   if (pSrc == nullptr)
+   {
+      //clear(pDest);
+      pDest = nullptr;
+      return;
+   }
+   if (pDest == nullptr && pSrc != nullptr)
+   {
+      //std::cout << "This was  was called" << std::endl;
+      pDest = new BNode(pSrc->data);
+      assign(pDest->pRight, pSrc->pRight);
+      assign(pDest->pLeft, pSrc->pLeft);
+   }
+   if (pDest != nullptr && pSrc != nullptr)
+   {
+      //std::cout << "Right was called" << std::endl;
+      pDest->data = pSrc->data;
+      assign(pDest->pRight, pSrc->pRight);
+      assign(pDest->pLeft, pSrc->pLeft);
+   }
+
 
 }

@@ -1,0 +1,11 @@
+﻿  testBNode.cpp
+C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 06 Binary Tree\BinaryTree-Lab-06\85 Percent\testBNode.h(86,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'BNode *' of greater size
+C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 06 Binary Tree\BinaryTree-Lab-06\85 Percent\testBNode.h(87,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'BNode *' of greater size
+C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 06 Binary Tree\BinaryTree-Lab-06\85 Percent\testBNode.h(88,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'BNode *' of greater size
+C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 06 Binary Tree\BinaryTree-Lab-06\85 Percent\testBNode.h(106,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'BNode *' of greater size
+C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 06 Binary Tree\BinaryTree-Lab-06\85 Percent\testBNode.h(107,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'BNode *' of greater size
+C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 06 Binary Tree\BinaryTree-Lab-06\85 Percent\testBNode.h(108,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'BNode *' of greater size
+C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 06 Binary Tree\BinaryTree-Lab-06\85 Percent\testBNode.h(127,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'BNode *' of greater size
+C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 06 Binary Tree\BinaryTree-Lab-06\85 Percent\testBNode.h(128,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'BNode *' of greater size
+C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 06 Binary Tree\BinaryTree-Lab-06\85 Percent\testBNode.h(129,1): warning C4312: 'type cast': conversion from 'unsigned int' to 'BNode *' of greater size
+  LabBinaryTree.vcxproj -> C:\Users\Jonathans Desktop\Documents\Schoolwork\DESIGNING data strucs\Lab 06 Binary Tree\BinaryTree-Lab-06\85 Percent\x64\Debug\LabBinaryTree.exe
