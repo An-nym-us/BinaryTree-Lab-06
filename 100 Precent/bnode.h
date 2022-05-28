@@ -66,10 +66,9 @@ inline size_t size(const BNode <T> * p)
 template <class T>
 inline void addLeft(BNode <T> * pNode, BNode <T> * pAdd)
 {
-   if (pAdd != nullptr)
-   {
+   if (pAdd)
       pAdd->pParent = pNode;
-   }
+
    pNode->pLeft = pAdd;
 }
 
@@ -80,10 +79,9 @@ inline void addLeft(BNode <T> * pNode, BNode <T> * pAdd)
 template <class T>
 inline void addRight (BNode <T> * pNode, BNode <T> * pAdd)
 {
-   if (pAdd != nullptr)
-   {
+   if (pAdd)
       pAdd->pParent = pNode;
-   }
+
    pNode->pRight = pAdd;
 }
 
@@ -95,6 +93,7 @@ template <class T>
 inline void addLeft (BNode <T> * pNode, const T & t)
 {
    BNode<T> *pAdd = new BNode<T>(t);
+
    pAdd->pParent = pNode;
    pNode->pLeft = pAdd;
 }
@@ -103,6 +102,7 @@ template <class T>
 inline void addLeft(BNode <T>* pNode, T && t)
 {
    BNode<T>* pAdd = new BNode<T>(t);
+
    pAdd->pParent = pNode;
    pNode->pLeft = pAdd;
 }
@@ -115,6 +115,7 @@ template <class T>
 void addRight (BNode <T> * pNode, const T & t)
 {
    BNode<T> *pAdd = new BNode<T>(t);
+
    pAdd->pParent = pNode;
    pNode->pRight = pAdd;
 }
@@ -123,6 +124,7 @@ template <class T>
 void addRight(BNode <T>* pNode, T && t)
 {
    BNode<T> *pAdd = new BNode<T>(t);
+
    pAdd->pParent = std::move(pNode);
    pNode->pRight = std::move(pAdd);
 }
@@ -135,15 +137,15 @@ void addRight(BNode <T>* pNode, T && t)
 template <class T>
 void clear(BNode <T> * & pThis)
 {
-   if (pThis == nullptr)
-   {
-      return ;
-   }
+   if (!pThis)
+      return;
+
    // RECURSIVE CASE
    clear(pThis->pLeft);
    clear(pThis->pRight);
 
    pThis = nullptr;
+
    delete pThis;
 }
 
@@ -166,30 +168,22 @@ inline void swap(BNode <T>*& pLHS, BNode <T>*& pRHS)
 template <class T>
 BNode <T> * copy(const BNode <T> * pSrc)
 {
-   if (pSrc != nullptr)
+   if (pSrc)
    {
       BNode<T>* node = new BNode<T>();
 
-
       if (pSrc->data)
-      {
          node->data = pSrc->data;
-      }
 
 
       node->pLeft = copy(pSrc->pLeft);
-      if (pSrc->pLeft != nullptr)
-      {
+      if (pSrc->pLeft)
          node->pLeft->pParent = node;
-      }
-
 
 
       node->pRight = copy(pSrc->pRight);
-      if (pSrc->pRight != nullptr)
-      {
+      if (pSrc->pRight)
          node->pRight->pParent = node;
-      }
 
       return node;
    }
@@ -207,25 +201,34 @@ BNode <T> * copy(const BNode <T> * pSrc)
 template <class T>
 void assign(BNode <T> * & pDest, const BNode <T>* pSrc)
 {
-   if (pSrc == nullptr)
+   
+
+
+   if (!pSrc)
    {
-      pDest = nullptr;
+      clear(pDest);
+
       return;
    }
-   if (pDest == nullptr && pSrc != nullptr)
+   if (!pDest && pSrc)
    {
-      //std::cout << "Left was called" << std::endl;
-
+      
       BNode<T>* node = new BNode<T>(pSrc->data);
-      pDest = node;
+
+      
       // RECURSIVE CALL
-      assign(pDest->pRight, pSrc->pRight);
-      assign(pDest->pLeft, pSrc->pLeft);
+      
+      assign(node->pRight, pSrc->pRight);
+      assign(node->pLeft, pSrc->pLeft);
+
+
+
    }
-   if (pDest != nullptr && pSrc != nullptr)
+   if (pDest && pSrc)
    {
-      //std::cout << "Right was called" << std::endl;
+      //c
       pDest->data = pSrc->data;
+
       
       // RECURSIVE CALL
       assign(pDest->pRight, pSrc->pRight);
